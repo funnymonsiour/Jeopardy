@@ -1,5 +1,4 @@
 package bbbbb;
-
 import java.util.*;
 public class ISU_Jeopardy {
 		
@@ -14,17 +13,17 @@ public class ISU_Jeopardy {
 			ArrayList<String> cat1Answers = new ArrayList<>(Arrays.asList("one1", "two1", "three1", "four1"));
 				
 				
-				ArrayList<Integer> cat2Points = new ArrayList<>(Arrays.asList(100, 200, 300, 400));
-				ArrayList<String> cat2Questions = new ArrayList<>(Arrays.asList("one2", "two2", "three2", "four2"));
-				ArrayList<String> cat2Answers = new ArrayList<>(Arrays.asList("one2", "two2", "three2", "fou2"));
+			ArrayList<Integer> cat2Points = new ArrayList<>(Arrays.asList(100, 200, 300, 400));
+			ArrayList<String> cat2Questions = new ArrayList<>(Arrays.asList("one2", "two2", "three2", "four2"));
+			ArrayList<String> cat2Answers = new ArrayList<>(Arrays.asList("one2", "two2", "three2", "fou2"));
 				
-				ArrayList<Integer> cat3Points = new ArrayList<>(Arrays.asList(100, 200, 300, 400));
-				ArrayList<String> cat3Questions = new ArrayList<>(Arrays.asList("one3", "two3", "three3", "four3"));
-				ArrayList<String> cat3Answers = new ArrayList<>(Arrays.asList("one3", "two3", "three3", "four3"));
-				
-				ArrayList<Integer> cat4Points = new ArrayList<>(Arrays.asList(100, 200, 300, 400));
-				ArrayList<String> cat4Questions = new ArrayList<>(Arrays.asList("one4", "two4", "three4", "four4"));
-				ArrayList<String> cat4Answers = new ArrayList<>(Arrays.asList("one4", "two4", "three4", "four4"));
+			ArrayList<Integer> cat3Points = new ArrayList<>(Arrays.asList(100, 200, 300, 400));
+			ArrayList<String> cat3Questions = new ArrayList<>(Arrays.asList("one3", "two3", "three3", "four3"));
+			ArrayList<String> cat3Answers = new ArrayList<>(Arrays.asList("one3", "two3", "three3", "four3"));
+			
+			ArrayList<Integer> cat4Points = new ArrayList<>(Arrays.asList(100, 200, 300, 400));
+			ArrayList<String> cat4Questions = new ArrayList<>(Arrays.asList("one4", "two4", "three4", "four4"));
+			ArrayList<String> cat4Answers = new ArrayList<>(Arrays.asList("one4", "two4", "three4", "four4"));
 				
 				int choice = 0;
 				String choiceAnswers = "";
@@ -37,12 +36,12 @@ public class ISU_Jeopardy {
 				int score2 = 0;
 				int score3 = 0;
 				int score4 = 0;
-				
+			
+				String restart = "";
 				
 				System.out.println("Welcome to Jeopardy!\nSelect one of the following options:\n\n1: Play Game\n2: Add Question\n3: Quit");
 			
 				
-				int count = 0;
 				
 				while (choice != 3){
 				
@@ -117,6 +116,9 @@ public class ISU_Jeopardy {
 						}
 						
 						
+						
+						
+						
 						System.out.println("You have selected 'Play Game.'\nPlease enter number of players, maximum is 4.");//begins playing the game
 						players = sc.nextInt();
 						
@@ -140,34 +142,36 @@ public class ISU_Jeopardy {
 						
 						System.out.println("\nThe Daily Double is in category "+ddCat+" and is question "+ddPoint);//tells the player(s) which category & which question contains the Daily Double
 						
-						while (count < cat1Points.size() + cat2Points.size() + cat3Points.size() + cat4Points.size() - 1) {//Determines the maximum amount of turns, that being however many questions there are.
+						int count = 0;
+						
+						while ((count < cat1Points.size() + cat2Points.size() + cat3Points.size() + cat4Points.size() - 1) && (!restart.equals("no"))) {//Determines the maximum amount of turns, that being however many questions there are.
+							
+							restart = "";
 							
 							for (int i = 0; i < players; i++){ //Begins the game proper & counts players' turns
 								
-								System.out.println("Current scores are:\n"+nameList[0]+": "+score1+"\n"+nameList[1]+": "+score2+"\n"+nameList[2]+": "+score3+"\n"+nameList[3]+": "+score4);
+								System.out.println("Current scores are:\n"+nameList[0]+": "+score1+"\n"+nameList[1]+": "+score2+"\n"+nameList[2]+": "+score3+"\n"+nameList[3]+": "+score4);//shows the players' scores
+								System.out.println();
 								
-								System.out.println("______________________________________________________");
-								System.out.println(categories);
-								System.out.println("______________________________________________________");
-								System.out.println("______________________________________________________");
-								System.out.println("______________________________________________________");
+								System.out.println("category 1: "+cat1Points);//game board
+								System.out.println("category 2: "+cat2Points);//game board
+								System.out.println("category 3: "+cat3Points);//game board
+								System.out.println("category 3: "+cat4Points);//game board
 								
-								System.out.println(nameList[i]+"'s Turn");
+								
+								
+								System.out.println("\n"+nameList[i]+"'s Turn");
 								
 								System.out.println("Please choose a category to select");
 								System.out.println(categories);
 								choice = sc.nextInt();
 								sc.nextLine();
 								
-								
-									
 								while (choice != 1 && choice != 2 && choice != 3 && choice != 4){
 									System.out.println("Wrong, try again");
 									choice = sc.nextInt();
 								}
 									
-								
-								
 								
 								switch (choice){ //categories
 						
@@ -177,8 +181,9 @@ public class ISU_Jeopardy {
 									choice = sc.nextInt();
 									sc.nextLine();
 									
+									
 					
-									while (choice < 1 || choice > cat1Points.size()){//checks if input is right or wrong, if so it looks for a redo & keeps going until it gets a correct answer
+									while (choice < 1 || choice > cat1Points.size() || cat1Points.get(choice - 1) == 0){//checks if input is right or wrong, if so it looks for a redo & keeps going until it gets a correct answer
 										System.out.println("Wrong, try again");
 										choice = sc.nextInt();
 									}
@@ -211,6 +216,8 @@ public class ISU_Jeopardy {
 											score2 -= cat1Points.get(choice - 1);
 									}		
 						
+									cat1Points.set(choice - 1, 0);
+									
 									count++;
 										
 									
@@ -258,7 +265,7 @@ public class ISU_Jeopardy {
 											score2 -= cat2Points.get(choice - 1);
 									}
 										
-											
+									cat2Points.set(choice - 1, 0);		
 										
 									count++;
 									
@@ -308,7 +315,7 @@ public class ISU_Jeopardy {
 											score2 -= cat3Points.get(choice - 1);
 									}		
 											
-												
+									cat3Points.set(choice - 1, 0);		
 										
 									count++;
 									
@@ -358,7 +365,8 @@ public class ISU_Jeopardy {
 										if (i == 3)
 											score2 -= cat4Points.get(choice - 1);
 									}	
-												
+										
+									cat4Points.set(choice - 1, 0);
 										
 									count++;
 										
@@ -367,19 +375,32 @@ public class ISU_Jeopardy {
 								
 								
 									}
+									
 								
-								
-								
-														
-							
+								}
 								
 							}
 						
+						System.out.println("Final scores are:\n"+nameList[0]+": "+score1+"\n"+nameList[1]+": "+score2+"\n"+nameList[2]+": "+score3+"\n"+nameList[3]+": "+score4);
 						
-						
-						
-						}	
+						if (score1 > score2 && score1 > score3 && score1 > score4) {
+							System.out.println(nameList[0]+" wins!");
+						}else if (score2 > score1 && score2 > score3 && score2 > score4) {
+							System.out.println(nameList[1]+" wins!");
+						}else if (score3 > score1 && score3 > score2 && score3 > score4) {
+							System.out.println(nameList[2]+" wins!");
+						}else if (score4 > score1 && score4 > score2 && score4 > score3) {
+							System.out.println(nameList[3]+" wins!");
+						}else {
+							System.out.println("Draw!");
+						}
 					
+						System.out.println("Would you like to play again?");
+						
+						restart = sc.nextLine();
+						sc.nextLine();
+						
+						
 						
 					case 2:
 						System.out.println("You have selected 'Add Question'");
@@ -401,4 +422,5 @@ public class ISU_Jeopardy {
 				
 			}
 		}
+
 
